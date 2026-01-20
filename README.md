@@ -5,6 +5,6 @@
 
 **Created by:** Jenna Everard
 
-**Maintained by:** Gulf Coast Repository, Texas A&M
+**Maintained by:** No longer maintained - please visit https://github.com/JennaEverard/SAFODCore/tree/main
 
 **Last Updated:** September, 2025
