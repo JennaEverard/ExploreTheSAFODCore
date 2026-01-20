@@ -5,6 +5,6 @@
 
 **Created by:** Jenna Everard
 
-**Maintained by:** No longer maintained - please visit https://github.com/JennaEverard/SAFODCore/tree/main
+**Maintained by:** No longer maintained - please visit https://github.com/JennaEverard/SAFODCore
 
 **Last Updated:** September, 2025
