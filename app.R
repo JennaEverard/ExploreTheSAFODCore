@@ -40,12 +40,14 @@ make_core_content <- function(selection, data, inventory) {
     tags$ul(
       lapply(seq_len(nrow(ts)), function(i) {
         dist <- ts[i, "dist_from_top"]
+        igsn <- ts[i, "IGSN"]
+        igsn_url <- paste0("https://app.geosamples.org/sample/igsn/", igsn)
         display_text <- if (suppressWarnings(!is.na(as.numeric(dist)))) {
-          paste0(dist, " cm")
+          paste0(dist, " cm (")
         } else {
-          paste0(dist)
+          paste0(dist, " (")
         }
-        tags$li(display_text)
+        tags$li(HTML(paste0(display_text, "<a href='", igsn_url, "' target='_blank'>", igsn, "</a>)")))
       })
     )
   } else {
@@ -62,12 +64,14 @@ make_core_content <- function(selection, data, inventory) {
     tags$ul(
       lapply(seq_len(nrow(rock)), function(i) {
         dist <- rock[i, "dist_from_top"]
+        igsn <- rock[i, "IGSN"]
+        igsn_url <- paste0("https://app.geosamples.org/sample/igsn/", igsn)
         display_text <- if (suppressWarnings(!is.na(as.numeric(dist)))) {
-          paste0(dist, " cm")
+          paste0(dist, " cm (")
         } else {
-          paste0(dist)
+          paste0(dist, " (")
         }
-        tags$li(display_text)
+        tags$li(HTML(paste0(display_text, "<a href='", igsn_url, "' target='_blank'>", igsn, "</a>)")))
       })
     )
   } else {
@@ -84,12 +88,14 @@ make_core_content <- function(selection, data, inventory) {
     tags$ul(
       lapply(seq_len(nrow(powder)), function(i) {
         dist <- powder[i, "dist_from_top"]
+        igsn <- powder[i, "IGSN"]
+        igsn_url <- paste0("https://app.geosamples.org/sample/igsn/", igsn)
         display_text <- if (suppressWarnings(!is.na(as.numeric(dist)))) {
-          paste0(dist, " cm")
+          paste0(dist, " cm (")
         } else {
-          paste0(dist)
+          paste0(dist, " (")
         }
-        tags$li(display_text)
+        tags$li(HTML(paste0(display_text, "<a href='", igsn_url, "' target='_blank'>", igsn, "</a>)")))
       })
     )
   } else {
@@ -106,12 +112,14 @@ make_core_content <- function(selection, data, inventory) {
     tags$ul(
       lapply(seq_len(nrow(billets)), function(i) {
         dist <- billets[i, "dist_from_top"]
+        igsn <- billets[i, "IGSN"]
+        igsn_url <- paste0("https://app.geosamples.org/sample/igsn/", igsn)
         display_text <- if (suppressWarnings(!is.na(as.numeric(dist)))) {
-          paste0(dist, " cm")
+          paste0(dist, " cm (")
         } else {
-          paste0(dist)
+          paste0(dist, " (")
         }
-        tags$li(display_text)
+        tags$li(HTML(paste0(display_text, "<a href='", igsn_url, "' target='_blank'>", igsn, "</a>)")))
       })
     )
   } else {
@@ -128,12 +136,14 @@ make_core_content <- function(selection, data, inventory) {
     tags$ul(
       lapply(seq_len(nrow(minicore)), function(i) {
         dist <- minicore[i, "dist_from_top"]
+        igsn <- minicore[i, "IGSN"]
+        igsn_url <- paste0("https://app.geosamples.org/sample/igsn/", igsn)
         display_text <- if (suppressWarnings(!is.na(as.numeric(dist)))) {
-          paste0(dist, " cm")
+          paste0(dist, " cm (")
         } else {
-          paste0(dist)
+          paste0(dist, " (")
         }
-        tags$li(display_text)
+        tags$li(HTML(paste0(display_text, "<a href='", igsn_url, "' target='_blank'>", igsn, "</a>)")))
       })
     )
   } else {
@@ -143,6 +153,9 @@ make_core_content <- function(selection, data, inventory) {
   tagList(
     br(),
     h4(strong(data$name)), # core, run, and section title
+    a(href=paste0("https://app.geosamples.org/sample/igsn/", data$IGSN), 
+      target="_blank", tags$i("IGSN: ", data$IGSN)),
+    br(),
     br(),
     p(strong('Depth (m): '), data$top_m, ' - ', data$bottom_m), # depth in meters
     p(strong('Depth (ft): '), data$top_ft, ' - ', data$bottom_ft), # depth in feet
@@ -233,7 +246,7 @@ ui <- page_sidebar(
   # Main panel that users can interact with
   accordion(
     
-    accordion_panel(title='Overview',
+    accordion_panel(title='Overview', active = FALSE,
                     div(
                       img(src="safod_holes.png", style="width:100%; height:auto;"),
                       br(), br(),
@@ -251,7 +264,7 @@ ui <- page_sidebar(
     ),
     
     # Hole C
-    accordion_panel(title="Hole C", 
+    accordion_panel(title="Hole C", active = TRUE, 
                     accordion(
                       accordion_panel(title="Run 1",
                                       selectInput(
@@ -309,7 +322,7 @@ ui <- page_sidebar(
                     )),
     
     # Hole E
-    accordion_panel(title="Hole E", 
+    accordion_panel(title="Hole E", active = FALSE, 
                     accordion(
                       accordion_panel(title="Run 1",
                                       selectInput(
@@ -332,7 +345,7 @@ ui <- page_sidebar(
                     )),
     
     # Hole G
-    accordion_panel(title="Hole G",
+    accordion_panel(title="Hole G", active = FALSE, 
                     accordion(
                       accordion_panel(title="Run 1",
                                       selectInput(
